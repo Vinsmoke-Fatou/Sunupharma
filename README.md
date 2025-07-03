@@ -1,51 +1,68 @@
-# SunupharmaManagement - Pharmacy Management Console Application
-Overview
-This is a console-based pharmacy management system developed in C for the SUNUPHARMA pharmacy. The application automates stock management, sales processing, user administration, and daily reporting to streamline pharmacy operations.
+# SunupharmaManagement - Application Console de Gestion Pharmaceutique
+Présentation
 
-Features
-Product Management
-Manage medicines with unique 5-character codes, names, prices, stock quantities, categories, and expiration dates.
+Cette application console, développée en langage C, a été conçue pour la gestion des stocks et des ventes de la pharmacie SUNUPHARMA. Elle permet d’automatiser la gestion des médicaments, des utilisateurs (admins et pharmaciens), des ventes, ainsi que la génération de rapports quotidiens.
 
-Data stored in a binary file (PRODUCTS.dat) for persistence and quick access.
+Fonctionnalités
 
-Category Management
-Create and manage product categories with auto-incremented IDs and descriptive labels.
+- Gestion des Produits : 
+  _Ajout, modification et suppression de médicaments.
+  
+  _Chaque produit est défini par un code, une désignation, un prix, une quantité en stock, une catégorie, et une date de péremption.
+  
+  _Les produits sont stockés dans un fichier binaire PRODUCTS.dat.
 
-Stored in a binary file (CATEGORIES.dat).
+-Gestion des Catégories
+  _Création et gestion de catégories (ex. : Antibiotiques, Vitamines).
+  
+  _ID auto-incrémenté, libellé clair.
+  
+  _Stockage dans CATEGORIES.dat.
 
-User Management
-Two user roles:
+- Gestion des Utilisateurs
+  
+  _Deux rôles sont définis :
+  
+    *Administrateur : gère les produits, les catégories et les comptes utilisateurs.
+    
+    *Pharmacien : effectue les ventes et consulte le stock.
+  
+  _Connexion sécurisée avec identifiants, changement de mot de passe obligatoire à la première connexion.
+  
+  _Données stockées dans USERS.dat.
 
-Admin: Full control to add/edit/delete products, manage categories, and create/block pharmacist accounts.
+- Gestion des Ventes
 
-Pharmacist: Can sell products, check stock, and generate sales invoices.
+  _Chaque vente génère un identifiant unique horodaté (AAAAMMDDHHmmSS).
+  
+  _Mise à jour automatique du stock.
+  
+  _Génération d’une facture texte sauvegardée dans le dossier /BILLS/.
 
-Secure login system with enforced password change on first login.
+- Rapports Journaliers
 
-User info stored in a binary file (USERS.dat).
+  _Un fichier ETAT_AAAAMMDD.txt est généré chaque jour.
+  
+  _Contenu : total des ventes, nombre de médicaments vendus, alertes de stock critique.
 
-Sales Management
-Each sale is assigned a unique timestamp-based ID (AAAAMMDDHHmmSS format).
+-Interface & Expérience Utilisateur
+  Interface console améliorée avec :
+    
+    *En-têtes stylisés en ASCII.
+    
+    *Menus interactifs avec couleurs.
+    
+    *Tableaux bien alignés pour l’affichage.
+    
+    *Messages animés (succès, erreurs, confirmations).
+    
+    *Système de validation avant toute suppression.
 
-Automatic stock update after each sale with expiration date verification.
+-Compilation et Exécution
 
-Generates detailed invoices stored in /BILLS/ folder as text files.
+  1- Compiler les fichiers source C avec gcc ou tout autre compilateur.
+  
+  2- Exécuter l’application dans le terminal.
+  
+  3- Naviguer à travers les menus pour utiliser le système.
 
-Daily Reports
-Generates daily sales reports (ETAT_AAAAMMDD.txt) summarizing total sales, quantities sold, and alerts for low stock.
-
-User Interface and Experience
-Styled console UI with ASCII art headers and color-coded menus.
-
-Data displayed in aligned tables for easy reading.
-
-Animated status messages (e.g., success, error notifications) to improve user feedback.
-
-Confirmation prompts before critical actions like deletion.
-
-How to Run
-1- Compile the C source files using a C compiler (e.g., gcc).
-
-2- Run the executable in a terminal or command prompt.
-
-3- Follow on-screen menus to navigate and use the system.
