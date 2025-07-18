@@ -1,4 +1,4 @@
-# SunupharmaManagement - Application Console de Gestion Pharmaceutique
+# Sunupharma - Application Console de Gestion Pharmaceutique
 Présentation
 
 Cette application console, développée en langage C, a été conçue pour la gestion des stocks et des ventes de la pharmacie SUNUPHARMA. Elle permet d’automatiser la gestion des médicaments, des utilisateurs (admins et pharmaciens), des ventes, ainsi que la génération de rapports quotidiens.
