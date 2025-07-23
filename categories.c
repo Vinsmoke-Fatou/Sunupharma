@@ -12,7 +12,6 @@
 #include <time.h>
 
 // Variable globale
-CATEGORIE c;
 FILE *fc;
 
 // Obtenir le dernier ID de categorie
@@ -20,6 +19,7 @@ int obtenirDernierIDCategorie() {
     fc = fopen("CATEGORIES.dat", "rb");
     int dernierId = 0;
     verifierFichier(fc);
+    CATEGORIE c;
 
     while (fread(&c, sizeof(CATEGORIE), 1, fc) == 1) {
         dernierId = c.idCategorie;
@@ -31,6 +31,7 @@ int obtenirDernierIDCategorie() {
 
 // Saisir une nouvelle categorie
 CATEGORIE saisirCategorie() {
+    CATEGORIE c;
     afficherInfo("=== Saisie d'une nouvelle categorie ===");
     printf("Saisir le libelle de la categorie : ");
     lireChaine(c.libelle, sizeof(c.libelle));
@@ -63,6 +64,8 @@ void modifierCategorie() {
     printf("Saisir l'ID de la categorie à modifier : ");
     scanf("%d", &id);
     fflush(stdin);
+
+    CATEGORIE c;
 
     fc = fopen("CATEGORIES.dat", "rb");
     FILE *tmp = fopen("tmp.dat", "wb");
@@ -116,6 +119,8 @@ void supprimerCategorie() {
     scanf("%d", &id);
     fflush(stdin);
 
+    CATEGORIE c;
+
     fc = fopen("CATEGORIES.dat", "rb");
     FILE *tmp = fopen("tmp.dat", "wb");
     verifierFichier(fc);
@@ -153,15 +158,15 @@ void supprimerCategorie() {
 
 // Afficher toutes les categories
 void afficherCategories() {
-    fc = fopen("CATEGORIES.dat", "rb");
+    FILE *fc = fopen("CATEGORIES.dat", "rb");
     verifierFichier(fc);
 
-    printf("\n==============================================================n");
+    printf("\n==============================================================\n");
     printf("  %-5s | %-30s\n", "ID", "Libelle");
     printf("==============================================================\n");
 
     int vide = 1;
-
+    CATEGORIE c;
     while (fread(&c, sizeof(CATEGORIE), 1, fc) == 1) {
         printf("  %-5d | %-30s\n", c.idCategorie, c.libelle);
         vide = 0;
@@ -172,6 +177,5 @@ void afficherCategories() {
     }
 
     printf("===========================================\n");
-
     fclose(fc);
 }

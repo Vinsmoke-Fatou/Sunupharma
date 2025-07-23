@@ -143,7 +143,7 @@ void supprimerUtilisateur() {
 
     do {
         printf("Saisir le login (5 lettres majuscules) : ");
-        lireChaine(login, sizeof(login)); // ✅ pas de viderBuffer ici
+        lireChaine(login, sizeof(login));
         if (strlen(login) != 5) {
             afficherErreur("Le login doit contenir exactement 5 caractères.");
             continue;
@@ -151,7 +151,7 @@ void supprimerUtilisateur() {
 
         int valide = 1;
         for (int i = 0; i < 5; i++) {
-            if (login[i] < 'A' || u.login[i] > 'Z') {
+            if (login[i] < 'A' || login[i] > 'Z') {
                 valide = 0;
                 break;
             }
@@ -165,7 +165,7 @@ void supprimerUtilisateur() {
     } while (1);
     fflush(stdin);
 
-    fu = fopen("UTILISATEURS.dat", "rb");
+    fu = fopen("USERS.dat", "rb");
     FILE *tmp = fopen("tmp.dat", "wb");
     verifierFichier(fu);
     verifierFichier(tmp);
@@ -209,27 +209,23 @@ void supprimerUtilisateur() {
 
 // Connexion utilisateur
 int connexionUtilisateur(char login[6], char motDePasse[20]) {
-    FILE *fu = fopen("USERS.dat", "rb");
+    fu = fopen("USERS.dat", "rb");
     verifierFichier(fu);
 
-    UTILISATEUR u;
-
     while (fread(&u, sizeof(UTILISATEUR), 1, fu) == 1) {
-        printf("Comparaison avec: %s\n", u.login);
-        if (strcmp(login, u.login) == 0) {
-            if (strcmp(motDePasse, u.motDePasse) == 0) {
-                printf("Mot de passe correct !\n");
-                fclose(fu);
-                if (strcmp(u.role, "ADMIN") == 0) return 1;
-                else return 2;
-            }
+        if (strcmp(login, u.login) == 0 && strcmp(motDePasse, u.motDePasse) == 0) {
+            fclose(fu);
+            if (strcmp(u.role, "ADMIN") == 0) return 1;
+            else return 2;
         }
     }
 
     fclose(fu);
-    printf("Connexion échouée\n");
     return -1;
+
 }
+
+
 
 // Modifier l'utilisateur
 void modifierUtilisateur() {
@@ -239,7 +235,7 @@ void modifierUtilisateur() {
     do {
         printf("Saisir le login (5 lettres majuscules) : ");
 
-        lireChaine(login, sizeof(login)); // ✅ pas de viderBuffer ici
+        lireChaine(login, sizeof(login));
 
         if (strlen(login) != 5) {
             afficherErreur("Le login doit contenir exactement 5 caractères.");
@@ -262,7 +258,7 @@ void modifierUtilisateur() {
     } while (1);
     fflush(stdin);
 
-    FILE *f = fopen("UTILISATEURS.dat", "rb");
+    FILE *f = fopen("USERS.dat", "rb");
     FILE *temp = fopen("temp.dat", "wb");
     verifierFichier(f);
     verifierFichier(temp);
@@ -290,8 +286,8 @@ void modifierUtilisateur() {
             printf("Etat : %s\n", statut);
             printf("=====================================\n");
             printf("\nQue souhaitez-vous modifier ?\n");
-            printf("1. Mot de passe\n2. Prénom\n3. Nom\n4. Téléphone\n");
-            printf("5. Rôle\n6. Etat (0 actif / -1 bloqué)\n");
+            printf("1. Mot de passe\n2. Prenom\n3. Nom\n4. Telephone\n");
+            printf("5. Ràle\n6. Etat (0 actif / -1 bloque)\n");
             printf("Choix : ");
 
             int choix;
@@ -302,11 +298,11 @@ void modifierUtilisateur() {
                 case 1:
                     printf("Nouveau mot de passe : ");
                     lireChaine(u.motDePasse, sizeof(u.motDePasse));
-                    u.premiereConnexion = 0; // il a changé son mdp
+                    u.premiereConnexion = 0; // il a change son mdp
                     fflush(stdin);
                     break;
                 case 2:
-                    printf("Nouveau prénom : ");
+                    printf("Nouveau prenom : ");
                     lireChaine(u.prenom, sizeof(u.prenom));
                     fflush(stdin);
                     break;
@@ -316,7 +312,7 @@ void modifierUtilisateur() {
                     fflush(stdin);
                     break;
                 case 4:
-                    printf("Nouveau téléphone : ");
+                    printf("Nouveau telephone : ");
                     lireChaine(u.telephone, sizeof(u.telephone));
                     fflush(stdin);
                     break;
@@ -327,7 +323,7 @@ void modifierUtilisateur() {
                     break;
                 case 6:
                     do {
-                        printf("Nouvel état (0 = actif, -1 = bloqué) : ");
+                        printf("Nouvel etat (0 = actif, -1 = bloque) : ");
                         scanf("%d", &u.etat);
                         if (u.etat != 0 && u.etat != -1) {
                             afficherErreur("La valeur doit etre 0 ou -1");
@@ -345,14 +341,14 @@ void modifierUtilisateur() {
 
     fclose(f);
     fclose(temp);
-    remove("UTILISATEURS.dat");
-    rename("temp.dat", "UTILISATEURS.dat");
+    remove("USERS.dat");
+    rename("temp.dat", "USERS.dat");
 
-    trouve ? afficherSucces("Utilisateur modifié.") :
-             afficherErreur("Utilisateur non trouvé.");
+    trouve ? afficherSucces("Utilisateur modifie.") :
+             afficherErreur("Utilisateur non trouve.");
 }
 
-// Modifier l'état d'un utilisateur
+// Modifier l'etat d'un utilisateur
 int ChangerEtatUtilisateur() {
     char login[6];
     int trouve = 0;
@@ -393,20 +389,20 @@ int ChangerEtatUtilisateur() {
         if (strcmp(u.login, login) == 0) {
             trouve = 1;
 
-            // Inversion de l'état
+            // Inversion de l'etat
             if (u.etat == 0) {
                 u.etat = -1;
             } else {
                 u.etat = 0;
             }
 
-            // Réécriture dans le fichier
+            // Reecriture dans le fichier
             fseek(fu, -sizeof(UTILISATEUR), SEEK_CUR);
             fwrite(&u, sizeof(UTILISATEUR), 1, fu);
             fclose(fu);
 
             (u.etat == -1)?afficherSucces("Utilisateur bloquer avec succes"):afficherSucces("Utilisateur debloquer avec succes");
-            return u.etat; // Retourne l'état final
+            return u.etat; // Retourne l'etat final
         }
     }
 
@@ -417,7 +413,43 @@ int ChangerEtatUtilisateur() {
         afficherErreur("Utilisateur introuvable.");
     }
 
-    return -2; // Code spécial pour erreur
+    return -2; // Code special pour erreur
+}
+
+char* changerMotDePasse(char login[]) {
+    FILE *f = fopen("USERS.dat", "rb+");
+    UTILISATEUR u;
+    int trouve = 0;
+    char *nouveauMDP = malloc(20 * sizeof(char)); // 20 caractères max
+
+    verifierFichier(f);
+
+    while (fread(&u, sizeof(UTILISATEUR), 1, f) == 1) {
+        if (strcmp(u.login, login) == 0) {
+            trouve = 1;
+
+            printf("Saisir votre nouveau mot de passe : ");
+            lireChaine(nouveauMDP, sizeof(nouveauMDP))
+
+
+            strcpy(u.motDePasse, nouveauMDP);
+            u.premiereConnexion = 0;
+
+            fseek(f, -1 * sizeof(UTILISATEUR), SEEK_CUR);
+            fwrite(&u, sizeof(UTILISATEUR), 1, f);
+            break;
+        }
+    }
+
+    fclose(f);
+
+    if (!trouve) {
+        printf("Utilisateur non trouvé.\n");
+        free(nouveauMDP);
+        return NULL;
+    }
+
+    return nouveauMDP;
 }
 
 

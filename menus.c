@@ -41,14 +41,14 @@ void menuPrincipal() {
     } while(choix != 0);
 }
 
-
 void menuConnexion() {
     char login[6];
     char password[20];
+    char motDePasseFinal[20]; // Pour éviter un appel double
     int role = -1;
-    int loginValide = 0;
 
     UTILISATEUR uTrouve;
+    int loginValide = 0;
     int utilisateurTrouve = 0;
     long pos = -1;
 
@@ -59,7 +59,7 @@ void menuConnexion() {
     afficherSucces("           CONNEXION               ");
     printf("=======================================\n");
 
-    // Étape 1 : Saisie du login avec validation
+    // Étape 1 : Saisie et validation du login
     do {
         printf("Saisir le login (5 lettres majuscules) : ");
         lireChaine(login, sizeof(login));
@@ -83,9 +83,8 @@ void menuConnexion() {
 
     } while (!loginValide);
 
-
     // Étape 2 : Recherche de l'utilisateur
-    rewind(fu); // Rembobiner le fichier
+    rewind(fu);
     while (fread(&uTrouve, sizeof(UTILISATEUR), 1, fu) == 1) {
         if (strcmp(login, uTrouve.login) == 0) {
             utilisateurTrouve = 1;
@@ -96,36 +95,47 @@ void menuConnexion() {
 
     if (!utilisateurTrouve) {
         fclose(fu);
-        afficherErreur("Aucun utilisateur trouve avec ce login.");
+        afficherErreur("Aucun utilisateur trouvé avec ce login.");
         return;
     }
 
-    // Étape 3 : Saisie du mot de passe
-    printf("Entrer votre mot de passe : ");
-    // Ajouter un getchar() pour consommer le \n restant
-    getchar();
-    lireChaine(password, sizeof(password));
+    // Étape 3 : Vérification du mot de passe ou changement obligatoire
+        if (uTrouve.premiereConnexion == 1) {
+           motDePasseFinal = changerMotDePasse(login);
 
-    if (strcmp(password, uTrouve.motDePasse) != 0) {
-        afficherErreur("Mot de passe invalide.");
-        fclose(fu);
-        return;
+    } else {
+        printf("Entrer votre mot de passe : ");
+        getchar();
+        lireChaine(password, sizeof(password));
+
+        if (strcmp(password, uTrouve.motDePasse) != 0) {
+            afficherErreur("Mot de passe invalide.");
+            fclose(fu);
+            return;
+        }
+        strcpy(motDePasseFinal, password);
+
     }
 
     fclose(fu);
 
-    // Étape 4 : Redirection vers le bon menu
-    role = connexionUtilisateur(login, password);
-    if (role == 1) {
-        afficherSucces("Connexion ADMIN reussie !");
-        Pause();
-        menuAdministrateur(login);
-    } else if (role == 2) {
-        afficherSucces("Connexion PHARMACIEN reussie !");
-        Pause();
-        menuPharmacien(login);
-    } else {
-        afficherErreur("Erreur lors de la connexion.");
+    // Étape 4 : Redirection selon le rôle
+    role = connexionUtilisateur(login, motDePasseFinal);
+
+    switch (role) {
+        case 1:
+            afficherSucces("Connexion ADMIN réussie !");
+            Pause();
+            menuAdministrateur(login);
+            break;
+        case 2:
+            afficherSucces("Connexion PHARMACIEN réussie !");
+            Pause();
+            menuPharmacien(login);
+            break;
+        default:
+            afficherErreur("Erreur lors de la connexion.");
+            break;
     }
 }
 
@@ -221,31 +231,25 @@ void menuCategories() {
         system("cls");
         printf("\n=======================================\n");
         afficherSucces("     GESTION DES CATEGORIES        ");
-        printf("=======================================\n");
-        afficherInfo("1. Afficher toutes les categories");
-        afficherInfo("2. Ajouter une categorie");
-        afficherInfo("3. Modifier une categorie");
-        afficherInfo("4. Supprimer une categorie");
+        afficherInfo("1. Ajouter une categorie");
+        afficherInfo("2. Modifier une categorie");
+        afficherInfo("3. Supprimer une categorie");
         afficherInfo("0. Retour\n");
         printf("=======================================\n");
         afficherInfo("Choisissez une option : ");
         scanf("%d", &choix);
         fflush(stdin);
 
-        switch (choix) {
+        switch (choix) {;
             case 1:
-                afficherCategories();
-                Pause();
-                break;
-            case 2:
                 ajouterCategorie();
                 Pause();
                 break;
-            case 3:
+            case 2:
                 modifierCategorie();
                 Pause();
                 break;
-            case 4:
+            case 3:
                 supprimerCategorie();
                 Pause();
                 break;

@@ -3,7 +3,7 @@
 
 typedef struct {
     int idCategorie;          // Identifiant unique de la catégorie
-    char libelle[30];         // Nom de la catégorie (ex: Antibiotiques)
+    char libelle[50];         // Nom de la catégorie (ex: Antibiotiques)
 } CATEGORIE;
 
 // Saisie d'une catégorie

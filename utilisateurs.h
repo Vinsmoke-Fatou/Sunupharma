@@ -32,7 +32,7 @@ void supprimerUtilisateur();
 int connexionUtilisateur(char login[6], char motDePasse[20]);
 
 // Changer le mot de passe
-//void changerMotDePasse(char login[6]);
+char changerMotDePasse(char login[]);
 
 
 int ChangerEtatUtilisateur();
