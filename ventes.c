@@ -6,7 +6,6 @@
 #include "rapports.h"
 #include "menus.h"
 
-#include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -72,6 +71,7 @@ void vendreProduit(char login[]) {
         printf("Saisir le code du produit (5 caractères) : ");
         lireChaine(code, sizeof(code));
     } while (strlen(code) != 5);
+    fflush(stdin);
 
     fp = fopen("PRODUITS.dat", "rb+");
     verifierFichier(fp);
@@ -104,11 +104,12 @@ void vendreProduit(char login[]) {
             do {
                 printf("Saisir la quantite à vendre : ");
                 scanf("%d", &quantite);
-                viderBufferEntree();
                 if (quantite > prod.quantite) {
                     afficherInfo("Stock insuffisant.");
                 }
             } while (quantite <= 0 || quantite > prod.quantite);
+            fflush(stdin);
+
 
             // Calcul total
             float total = quantite * prod.prix;
@@ -135,4 +136,3 @@ void vendreProduit(char login[]) {
         afficherErreur("Produit introuvable.");
     }
 }
-

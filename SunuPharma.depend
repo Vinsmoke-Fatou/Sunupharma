@@ -1,0 +1,133 @@
+# depslib dependency file v1.0
+1753239533 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\main.c
+	"produits.h"
+	"categories.h"
+	"utilisateurs.h"
+	"utils.h"
+	"ventes.h"
+	"rapports.h"
+	"menus.h"
+	"init.h"
+	<stdio.h>
+	<stdlib.h>
+
+1752543242 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\users.c
+
+1753242674 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\categories.c
+	"produits.h"
+	"categories.h"
+	"utilisateurs.h"
+	"utils.h"
+	"ventes.h"
+	"rapports.h"
+	"menus.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+
+1752631984 c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\produits.h
+
+1752630061 c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\categories.h
+
+1753227365 c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\utilisateurs.h
+
+1753239533 c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\utils.h
+
+1752630062 c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\ventes.h
+
+1752630485 c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\rapports.h
+
+1752630062 c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\menus.h
+
+1753241782 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\menus.c
+	"produits.h"
+	"categories.h"
+	"utilisateurs.h"
+	"utils.h"
+	"ventes.h"
+	"rapports.h"
+	"menus.h"
+	"init.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<time.h>
+
+1753242674 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\utilisateurs.c
+	"produits.h"
+	"categories.h"
+	"utilisateurs.h"
+	"utils.h"
+	"ventes.h"
+	"rapports.h"
+	"menus.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+
+1753242674 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\utils.c
+	"produits.h"
+	"categories.h"
+	"utilisateurs.h"
+	"utils.h"
+	"ventes.h"
+	"rapports.h"
+	"menus.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+
+1753242673 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\ventes.c
+	"produits.h"
+	"categories.h"
+	"utilisateurs.h"
+	"utils.h"
+	"ventes.h"
+	"rapports.h"
+	"menus.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+
+1753242147 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\produits.c
+	"produits.h"
+	"categories.h"
+	"utilisateurs.h"
+	"utils.h"
+	"ventes.h"
+	"rapports.h"
+	"menus.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+
+1753241694 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\rapports.c
+	"produits.h"
+	"categories.h"
+	"utilisateurs.h"
+	"utils.h"
+	"ventes.h"
+	"rapports.h"
+	"menus.h"
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+
+1753237064 source:c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\init.c
+	"init.h"
+	"utilisateurs.h"
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+
+1753238589 c:\users\sambf\desktop\cours\cours l1 gl\langage c\projet\sunupharma\init.h
+
